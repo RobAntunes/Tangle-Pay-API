@@ -7,10 +7,12 @@ import { timeoutMiddleware } from "./middleware/timeout.ts";
 import { sanitizeMiddleware } from "./middleware/sanitizer.ts";
 import { tokenRefresher } from "./middleware/tokenRefresher.ts";
 
-const supabaseUrl = "https://gfsiyznswfgnylijruzv.supabase.co";
-const supabaseKey =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdmc2l5em5zd2ZnbnlsaWpydXp2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczNDQxMTI0NywiZXhwIjoyMDQ5OTg3MjQ3fQ.V4BAvO-hKXF75jiTJoCjXy2jp0FH_SG7ZiNCK4NZriE";
-export const supabase = supabase_js.createClient(supabaseUrl, supabaseKey, {
+const supabaseUrl = Deno.env.get(
+  "SUPABASE_URL"
+);
+const supabaseKey = Deno.env.get("SUPABASE_ANON_KEY");
+
+export const supabase = supabase_js.createClient(supabaseUrl as string, supabaseKey as string, {
   auth: {
     autoRefreshToken: true,
     persistSession: true,
